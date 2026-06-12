@@ -1,0 +1,13 @@
+services:
+  emotion-detection:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: emotion-detection-app
+    ports:
+      - "5000:5000"
+    environment:
+      # auto: Watson first; local fallback if the course-only endpoint is unavailable.
+      EMOTION_BACKEND: ${EMOTION_BACKEND:-auto}
+      EMOTION_API_TIMEOUT: ${EMOTION_API_TIMEOUT:-20}
+    restart: unless-stopped
